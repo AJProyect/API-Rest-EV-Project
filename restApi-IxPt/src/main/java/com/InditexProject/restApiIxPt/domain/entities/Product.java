@@ -22,8 +22,8 @@ public class Product {
     @JsonProperty("stock")
     private Stock stock;
 
-    public int compareTo(Product other) {
-        return Integer.compare(other.salesUnits, this.salesUnits);
+    public int totalStock(){
+        return getStock().getS() + getStock().getM() + getStock().getL();
     }
 }
 

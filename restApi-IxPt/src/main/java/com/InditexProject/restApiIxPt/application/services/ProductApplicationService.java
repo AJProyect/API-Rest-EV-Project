@@ -16,11 +16,7 @@ public class ProductApplicationService {
         this.productService = productService;
     }
 
-    public List<Product> getProductsBySalesUnits() {
-        return productService.getProductsBySalesUnits();
-    }
-
-    public List<Product> getProductsByStock() {
-        return productService.getProductsByStock();
+    public List<Product> getProductSort(double salesWeight, double stockWeight){
+        return productService.sortProduct(salesWeight,stockWeight);
     }
 }

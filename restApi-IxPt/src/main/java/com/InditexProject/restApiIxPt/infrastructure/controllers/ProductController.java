@@ -19,13 +19,7 @@ public class ProductController {
     }
 
     @GetMapping(value = "/filtered", produces = "application/json")
-    public List<Product> getProductsOrdered(@RequestParam(defaultValue = "sales") String order){
-        if ("sales".equalsIgnoreCase(order)) {
-            return productApplicationService.getProductsBySalesUnits();
-        } else if ("stock".equalsIgnoreCase(order)) {
-            return productApplicationService.getProductsByStock();
-        } else {
-            throw new IllegalArgumentException("Invalid orderBy parameter. Use 'sales' or 'stock'.");
-        }
+    public List<Product> getProductsOrdered(@RequestParam double salesWeight, @RequestParam double stockWeight){
+        return productApplicationService.getProductSort(salesWeight, stockWeight);
     }
 }
