@@ -20,6 +20,13 @@ public class ProductController {
 
     @GetMapping(value = "/filtered", produces = "application/json")
     public List<Product> getProductsOrdered(@RequestParam double salesWeight, @RequestParam double stockWeight){
+        validateWeights(salesWeight, stockWeight);
         return productApplicationService.getProductSort(salesWeight, stockWeight);
+    }
+
+    private void validateWeights(double salesWeight, double stockWeight){
+        if (salesWeight < 0 || stockWeight < 0) {
+            throw new IllegalArgumentException("Params cannot be negative.");
+        }
     }
 }
