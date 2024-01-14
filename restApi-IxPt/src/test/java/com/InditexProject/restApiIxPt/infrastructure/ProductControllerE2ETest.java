@@ -7,8 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.hasSize;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ProductControllerE2ETest {

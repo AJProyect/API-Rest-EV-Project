@@ -1,4 +1,4 @@
-package com.InditexProject.restApiIxPt.application.services;
+package com.InditexProject.restApiIxPt.application;
 
 import com.InditexProject.restApiIxPt.domain.entities.Product;
 import com.InditexProject.restApiIxPt.domain.entities.Stock;
@@ -42,6 +42,5 @@ class ProductServiceTest {
         assertEquals(product2, sortedProducts.get(0));
         assertEquals(product1, sortedProducts.get(1));
     }
-
 }
 
