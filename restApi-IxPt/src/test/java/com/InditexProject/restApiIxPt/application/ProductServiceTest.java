@@ -1,7 +1,6 @@
 package com.InditexProject.restApiIxPt.application;
 
-import com.InditexProject.restApiIxPt.domain.entities.Product;
-import com.InditexProject.restApiIxPt.domain.entities.Stock;
+import com.InditexProject.restApiIxPt.domain.entities.*;
 import com.InditexProject.restApiIxPt.domain.repository.ProductRepository;
 import com.InditexProject.restApiIxPt.domain.services.ProductService;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,20 +13,24 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class ProductServiceTest {
-
-    @Mock
-    private ProductRepository repository;
-
-    @InjectMocks
-    private ProductService productService;
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
+
+    private final ProductRepository repository = mock(ProductRepository.class);
+
+    private final StockCriteria salesScoreStrategy = new StockCriteria();
+    private final SalesUnitsCriteria stockRatioScoreStrategy = new SalesUnitsCriteria();
+
+    private final List<ProductScore> scoreCalculationStrategies =
+            Arrays.asList(salesScoreStrategy, stockRatioScoreStrategy);
+
+    private final ProductService productService = new ProductService(repository);
 
     @Test
     void testSortProduct() {
@@ -37,7 +40,7 @@ class ProductServiceTest {
 
         when(repository.findAll()).thenReturn(products);
 
-        List<Product> sortedProducts = productService.sortProduct(0.5, 0.3);
+        List<Product> sortedProducts = productService.sortProduct(scoreCalculationStrategies, 0.3);
 
         assertEquals(product2, sortedProducts.get(0));
         assertEquals(product1, sortedProducts.get(1));

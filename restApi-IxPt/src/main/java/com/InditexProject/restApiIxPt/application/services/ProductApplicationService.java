@@ -1,28 +1,26 @@
 package com.InditexProject.restApiIxPt.application.services;
 
-import com.InditexProject.restApiIxPt.infrastructure.dtos.ProductDTO;
-import com.InditexProject.restApiIxPt.infrastructure.mapper.ProductMapper;
+import com.InditexProject.restApiIxPt.domain.entities.ProductScore;
 import com.InditexProject.restApiIxPt.domain.entities.Product;
 import com.InditexProject.restApiIxPt.domain.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductApplicationService {
     private final ProductService productService;
-    private final ProductMapper productMapper;
+    private final List<ProductScore> productStrategies;
+
 
     @Autowired
-    public ProductApplicationService(ProductService productService, ProductMapper productMapper) {
+    public ProductApplicationService(ProductService productService, List<ProductScore> productStrategies) {
         this.productService = productService;
-        this.productMapper = productMapper;
+        this.productStrategies = productStrategies;
     }
 
-    public List<Product> getProductSort(double salesWeight, double stockWeight){
-        List<Product> products = productService.sortProduct(salesWeight, stockWeight);
-        return products;
+    public List<Product> getProductSort(double... weights){
+        return productService.sortProduct(productStrategies, weights);
     }
 }
