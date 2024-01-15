@@ -1,17 +1,15 @@
 package com.InditexProject.restApiIxPt.domain.entities;
 
-import org.springframework.stereotype.Component;
+public class SalesUnitsCriteria extends ProductScoreImpl {
+    private double salesUnitWeight;
 
-@Component
-public class SalesUnitsCriteria implements ProductScore {
-
-    @Override
-    public double calculateScore(Product product) {
-        return product.getSalesUnits();
+    public SalesUnitsCriteria(ProductScore productScore, double salesUnitWeight) {
+        super(productScore);
+        this.salesUnitWeight = salesUnitWeight;
     }
 
     @Override
-    public double getWeight() {
-        return 0.7;
+    public double calculateScore(Product product) {
+        return super.calculateScore(product) + (product.getSalesUnits() * salesUnitWeight);
     }
 }

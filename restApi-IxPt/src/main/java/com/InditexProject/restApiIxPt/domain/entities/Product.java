@@ -32,35 +32,12 @@ public class Product {
         return stock;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSalesUnits(Integer salesUnits) {
-        this.salesUnits = salesUnits;
-    }
-
-    public void setStock(Stock stock) {
-        this.stock = stock;
-    }
-
     public int totalStock(){
         return getStock().getS() + getStock().getM() + getStock().getL();
     }
 
-    public double calculateScore(Product product, List<ProductScore> strategies, double... weights) {
-        double totalScore = 0;
-
-        for (int i = 0; i < strategies.size(); i++) {
-            double weight = i < weights.length ? weights[i] : 0.0;
-            totalScore += strategies.get(i).calculateScore(product) * weight;
-        }
-
-        return totalScore;
+    public double calculateScore(ProductSortCriteria strategies) {
+        return strategies.calculateScore(this);
     }
 
 }
